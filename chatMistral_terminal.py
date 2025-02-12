@@ -9,7 +9,7 @@ def clear_screen():
 
 clear_screen()
 print("\033[94;1m")  #light blue bold
-APIK = input('Your Mistral API key: ') #'jspAEJOmr87tF7R7yMmgYyEgKbQDKR0c'
+APIK = input('Your Mistral API key: ') # 32 char from https://console.mistral.ai/api-keys/
 CLIENT = Mistral(api_key=APIK)
 history = []
 
