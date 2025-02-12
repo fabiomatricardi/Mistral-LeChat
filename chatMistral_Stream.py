@@ -9,7 +9,7 @@ def clear_screen():
 
 clear_screen()
 print("\033[94;1m")  #light blue bold
-APIK = input('Your Mistral API key: ') #'jspAEJOmr87tF7R7yMmgYyEgKbQDKR0c'
+APIK = input('Your Mistral API key: ') # 32 char from https://console.mistral.ai/api-keys/
 CLIENT = Mistral(api_key=APIK)
 history = []
 
@@ -57,8 +57,8 @@ def chatMistral(CLIENT,history,prompt):
     pp = 1.2
     maxtokens = 1000
     res = CLIENT.chat.stream(model=model,
-        messages = history, temperature=temp, presence_penalty=pp, max_tokens=maxtokens) #presence_penalty=pp,
-    answer = ''#response.choices[0].message.content
+        messages = history, temperature=temp, presence_penalty=pp, max_tokens=maxtokens) 
+    answer = ''
     for chunk in res:
         if chunk.data.choices[0].delta.content is not None:
             print(chunk.data.choices[0].delta.content, end="")  
@@ -77,7 +77,5 @@ while True:
     if "quit!" in lines[0].lower():
         print("\033[0mBYE BYE!")
         break
-    #history.append({"role": "user", "content": userinput})
     print("\033[92;1m")
     history, new_message = chatMistral(CLIENT,history,userinput)
-    #print(new_message)
