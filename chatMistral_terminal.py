@@ -34,6 +34,23 @@ intro = """
 print(intro)
 
 def chatMistral(CLIENT,history,prompt):
+    """
+    SDK call to Mistral Platforme endpoints for free and paid models 
+    The function will NOT STREAM the output
+    - it is required a verified API key from https://console.mistral.ai/
+    inputs: CLIENT -> instance of Mistral object
+           history -> list, chat messages
+           prompt  -> str, the prompt from the user
+    outputs : history -> list, chat messages including the prompt and model response
+              answer  -> str, the model response to the prompt     
+    Usage example:
+    from mistralai import Mistral
+    CLIENT = Mistral(api_key=APIK)
+    history = []
+    history, new_message = chatMistral(CLIENT,history,'what is Science?')
+    ---
+    more examples from https://docs.mistral.ai/capabilities/completion/
+    """    
     model = 'mistral-small-latest'
     history.append({"role": "user","content": prompt})
     response = CLIENT.chat.complete(model=model,
@@ -53,7 +70,6 @@ while True:
     if "quit!" in lines[0].lower():
         print("\033[0mBYE BYE!")
         break
-    #history.append({"role": "user", "content": userinput})
     print("\033[92;1m")
     history, new_message = chatMistral(CLIENT,history,userinput)
     print(new_message)
